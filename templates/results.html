@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика</title>
+    <link rel="shortcut icon" href="/static/tick.png" type="image/png">
+    <style>
+    body {background-image: url(static/fence.png)}
+    </style>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+</head>
+<body>
+<fieldset style="background-color:LightCyan">
+    <h2><b>Результаты опроса</b></h2>
+    <table>
+        <tr>
+            <td>Средний возраст</td>
+            <td>{{ all_info['age_mean'] }}</td>
+        </tr>
+        <tr>
+            <td>Минимальный возраст</td>
+            <td>{{ all_info['age_min'] }}</td>
+        </tr>
+        <tr>
+            <td>Максимальный возраст</td>
+            <td>{{ all_info['age_max'] }}</td>
+        </tr>
+        <tr>
+            <td>Количество опрошенных</td>
+            <td>{{ all_info['total_count'] }}</td>
+        </tr>
+        <tr>
+            <td>Средняя оценка предложения: "Даже Вася-то решил задачу?":</td>
+            <td>{{ all_info['q6_mean'] }}</td>
+        </tr>
+        <tr>
+            <td>Средняя оценка предложения: "Хорошо, что акцент у него хоть едва заметен": </td>
+            <td>{{ all_info['q7_mean'] }}</td>
+        </tr>
+
+    </table>
+
+
+<h2><b>Худи</b> (род)</h2>
+    <canvas id="chart1" width="300" height="200"></canvas>
+       <script>
+         var pieData = [
+             {% for item1, label1, colors in set1 %}
+             {
+               value: {{item1}},
+               label: "{{label1}}",
+               color : "{{colors}}"
+              },
+             {% endfor %}
+          ];
+          // get bar chart canvas
+          var mychart = document.getElementById("chart1").getContext("2d");
+          steps = 10
+          max = {{ max }}
+          // draw pie chart
+          new Chart(document.getElementById("chart1").getContext("2d")).Pie(pieData);
+       </script>
+
+
+<h2><b>Кофе</b> (род)</h2>
+    <canvas id="chart2" width="300" height="200"></canvas>
+       <script>
+         var pieData = [
+             {% for item2, label2, colors in set2 %}
+             {
+               value: {{item2}},
+               label: "{{label2}}",
+               color : "{{colors}}"
+              },
+             {% endfor %}
+          ];
+          // get bar chart canvas
+          var mychart2 = document.getElementById("chart2").getContext("2d");
+          steps = 10
+          max = {{ max }}
+          // draw pie chart
+          new Chart(document.getElementById("chart2").getContext("2d")).Pie(pieData);
+       </script>
+
+
+<h2><b>Река</b> (род)</h2>
+    <canvas id="chart3" width="300" height="200"></canvas>
+       <script>
+         var pieData = [
+             {% for item3, label3, colors in set3 %}
+             {
+               value: {{item3}},
+               label: "{{label3}}",
+               color : "{{colors}}"
+              },
+             {% endfor %}
+          ];
+          // get bar chart canvas
+          var mychart3 = document.getElementById("chart3").getContext("2d");
+          steps = 10
+          max = {{ max }}
+          // draw pie chart
+          new Chart(document.getElementById("chart3").getContext("2d")).Pie(pieData);
+       </script>
+
+
+<h2><b>Тапки</b> (род)</h2>
+    <canvas id="chart4" width="300" height="200"></canvas>
+       <script>
+         var pieData = [
+             {% for item4, label4, colors in set4 %}
+             {
+               value: {{item4}},
+               label: "{{label4}}",
+               color : "{{colors}}"
+              },
+             {% endfor %}
+          ];
+          // get bar chart canvas
+          var mychart4 = document.getElementById("chart4").getContext("2d");
+          steps = 10
+          max = {{ max }}
+          // draw pie chart
+          new Chart(document.getElementById("chart4").getContext("2d")).Pie(pieData);
+       </script>
+
+
+<h2><b>Кроссовки</b> (род)</h2>
+    <canvas id="chart5" width="300" height="200"></canvas>
+       <script>
+         var pieData = [
+             {% for item5, label5, colors in set5 %}
+             {
+               value: {{item5}},
+               label: "{{label5}}",
+               color : "{{colors}}"
+              },
+             {% endfor %}
+          ];
+          // get bar chart canvas
+          var mychart5 = document.getElementById("chart5").getContext("2d");
+          steps = 10
+          max = {{ max }}
+          // draw pie chart
+          new Chart(document.getElementById("chart5").getContext("2d")).Pie(pieData);
+       </script>
+
+
+    <p><a href='/'>В начало</a></p>
+</fieldset>
+</body>
+<footer class="bs-docs-footer">
+		<div class="container">
+			<p style="text-align:right; ">&copy; Т. Казакова, 2019</p>
+		</div>
+</footer>
+</html>

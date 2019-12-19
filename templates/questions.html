@@ -1,0 +1,146 @@
+<html>
+	<head>
+		<title>Опрос</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			input{width: 100%}
+			input.radio{width: 10%}
+			input.submit{width: 20%}
+			select{width: 100%}
+			ul{list-style-type: none}
+			p{margin-left: 15}
+			h3{margin-bottom: -7px}
+			h4{margin-bottom: -7px}
+		</style>
+		<link rel="shortcut icon" href="/static/the_question_mark.png" type="image/png">
+	</head>
+	<body style="background-color:Ivory">
+    <p><font size=3>Спасибо, что согласились поучаствовать!</font></p>
+		<form class="container" action="/process">
+			<h2><font face="Gabriola" size=5 color="DarkBlue">Немного о Вас</font></h2>
+			<div class="row">
+				<div class="col-md-4">Возраст</div>
+				<div class="col-md-4"><input type="number" name="age" required></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">Гендер</div>
+				<select name="gender" class="col-md-4">
+					<option value="male">м</option>
+					<option value="female">ж</option>
+					<option value="other">другой</option>
+				</select>
+			</div>
+			<div class="row">
+				<div class="col-md-4">Уровень образования</div>
+				<select name="education" class="col-md-4">
+					<option value="kindergarten">детский сад</option>
+                    <option value="school">неоконченное среднее</option>
+					<option value="school_11">оконченное среднее</option>
+					<option value="college">среднее специальное</option>
+					<option value="student">неоконченное высшее</option>
+					<option value="bachelor">бакалавриат/специалитет</option>
+					<option value="master">магистратура</option>
+					<option value="phd">аспирантура</option>
+					<option value="candidate">кандидат наук</option>
+					<option value="doctor">доктор наук</option>
+				</select>
+			</div>
+			<div class="row">
+				<div class="col-md-4">Город проживания</div>
+				<select name="city" class="col-md-4">
+					<option value="Moscow">Москва</option>
+					<option value="StP">Санкт-Петербург</option>
+					<option value="Cheliabinsk">Челябинск</option>
+					<option value="Novosibirsk">Новосибирск</option>
+					<option value="Sevastopol">Севастополь</option>
+					<option value="PereaslavlZal">Переяславль-Залесский</option>
+					<option value="Perm">Пермь</option>
+					<option value="Tomsk">Томск</option>
+					<option value="Omsk">Омск</option>
+                    <option value="PetropKam">Петропавловск-Камчатский</option>
+					<option value="Zea">Зея</option>
+					<option value="Kaliningrad">Калининград</option>
+					<option value="Another_rus">Другой в России</option>
+					<option value="Another_for">Город не в России</option>
+					<option value="Traveler">Постоянно переезжаю</option>
+				</select>
+			</div>
+			<div class="row">
+				<div class="col-md-4">Уровень владения русским</div>
+				<select name="rus_level" class="col-md-4">
+					<option value="L1">единственный родной</option>
+					<option value="biling">не единственный родной (билингв)</option>
+					<option value="C1-C2">C1-C2</option>
+					<option value="B2">B2</option>
+					<option value="B1">B1</option>
+					<option value="A2">A2</option>
+					<option value="A1">A1</option>
+				</select>
+			</div>
+			<h3><font face="Gabriola" size=6 color="DarkBlue">Вопросы</font></h3>
+            {% for question in questions[:5] %}
+			    <div class="row">
+                    <p><br /></p>
+                    <p class="col-md-6"><font size=4">{{question.text}}</font></p>
+					<table class="col-md-8">
+						<tr>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value='М.р.'></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value='Ж.р.'></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value='Ср.р.'></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value='Слово неизвестно' checked></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value='Род неизвестен'></td>
+						</tr>
+						<tr>
+							<td> М. р. </td>
+							<td> Ж. р. </td>
+							<td> С. р. </td>
+							<td>Не знаю слова</td>
+							<td>Знаю слово, не знаю род</td>
+						</tr>
+					</table>
+			    </div>
+            {% endfor %}
+            <p><br /></p>
+            <h4><font size=5">Насколько хорошими Вам кажутся следующие предложения?</font></h4>
+			{% for question in questions[5:] %}
+			    <div class="row">
+                    <p><br /></p>
+                    <p class="col-md-6"><em><font size=4">{{question.text}}</font></em></p>
+					<table class="col-md-8">
+						<tr><td><input class="radio" type="radio" name="q{{ question.id }}" value=1></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value=2></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value=3 checked></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value=4></td>
+							<td><input class="radio" type="radio" name="q{{ question.id }}" value=5></td>
+						</tr>
+						<tr>
+							<td>ужасно</td>
+							<td>плохо</td>
+							<td>нормально</td>
+							<td>хорошо</td>
+							<td>отлично</td>
+						</tr>
+					</table>
+			    </div>
+            {% endfor %}
+            <p><br /></p>
+            <p><font size=4">Комментарии к опросу</font></p>
+            <textarea name="comment" cols="100" rows="2"></textarea>
+			<div class="row">
+                <p><br /></p>
+				<input class="submit" type="submit" name="submit" value="Отправить">
+			</div>
+		</form>
+    <p><br /></p>
+	<p><font size=4">Вы сможете посмотреть статистику, как только пройдёте опрос.</font></p>
+	</body>
+    <footer class="bs-docs-footer">
+		<div class="container">
+			<p style="text-align:right; ">Основан на опросах Б. Иомдина и примеров из семантики</p>
+			<p style="text-align:right; ">&copy; Т. Казакова, 2019</p>
+		</div>
+	</footer>
+</html>
